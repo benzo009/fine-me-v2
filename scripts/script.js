@@ -1,8 +1,10 @@
 function redirectTo(url) {
 window.open(url, "_blank");
 }
+// front-end logic
 
-const API_URL = "https://v13rxnxr2m.execute-api.us-east-1.amazonaws.com/prod";
+const API_URL = window._env_.API_URL;
+
 const COOKIE_NAME = "visitor_tracked";
 const COOKIE_DURATION_MINUTES = 1440;
 
@@ -18,7 +20,8 @@ function hasVisitorCookie(name) {
   return document.cookie.split(";").some((cookie) => cookie.trim().startsWith(`${name}=`));
 }
 
-// Fetch visitor count 
+
+    // Fetch visitor count
 async function fetchVisitorCount(incrementIfNeeded = false) {
   try {
     const response = await fetch(API_URL, {
@@ -28,6 +31,7 @@ async function fetchVisitorCount(incrementIfNeeded = false) {
         "Content-Type": "application/json"
       }
     });
+
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
